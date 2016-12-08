@@ -89,13 +89,11 @@ endif
 set background=dark
 colorscheme gruvbox
 
-imap <Tab>     <Plug>(neosnippet_expand_or_jump)
-smap <Tab>     <Plug>(neosnippet_expand_or_jump)
-xmap <Tab>     <Plug>(neosnippet_expand_target)
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 nnoremap <silent> ,r :Denite file_mru<CR>
 nnoremap <silent> ,f :Denite file_rec<CR>
-"call denite#custom#map('insert', '<C-n>', 'move_to_next_line')
-"call denite#custom#map('insert', '<C-p>', 'move_to_prev_line')
 
 let g:deoplete#enable_at_startup = 1
