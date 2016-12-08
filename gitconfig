@@ -1,0 +1,13 @@
+[github]
+	user = shocrunch
+[user]
+	name = Shota TAMURA
+	email = r3108.sh@gmail.com
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = true
+[mergetool "vimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[difftool]
+	prompt = false
