@@ -81,8 +81,10 @@ call dein#add('scrooloose/syntastic')
 call dein#add('thiblahute/vim-devhelp')
 call dein#add('tpope/vim-abolish')
 call dein#add('tpope/vim-surround')
+call dein#add('vim-scripts/gtk-vim-syntax')
 call dein#add('vimwiki/vimwiki')
 call dein#add('zchee/deoplete-clang')
+call dein#add('vivien/vim-linux-coding-style')
 " }}}
 call dein#end()
 
@@ -111,3 +113,5 @@ let g:deoplete#enable_at_startup=1
 
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 let g:devhelpSearch=1
+
+let g:linuxsty_patterns = [ "/usr/src/", "/linux" ]
