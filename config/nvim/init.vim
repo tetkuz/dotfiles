@@ -105,7 +105,7 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-let g:deoplete#sources#clang#libclang_path='/usr/lib/llvm-3.6/lib/libclang.so.1'
+let g:deoplete#sources#clang#libclang_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
 let g:deoplete#sources#clang#clang_header='/usr/lib/llvm-3.8/lib/clang/3.8.1/include'
 let g:deoplete#auto_complete_delay=100
 let g:deoplete#enable_at_startup=1
