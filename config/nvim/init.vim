@@ -48,7 +48,7 @@ nnoremap gcd :cd %:h<CR>
 nnoremap / :set hlsearch<CR>/
 nnoremap gr gT
 nnoremap T :tabnew<CR>
-vnoremap <M-g> y:!google-chrome "http://www.google.com/search?q=<C-R>""\ &<CR>
+vnoremap <M-g> y:!chromium "http://www.google.com/search?q=<C-R>""\ &<CR>
 " }}}
 au BufWritePre * %s/\s\+$//e
 let g:python3_host_prog = '/usr/bin/python3'
