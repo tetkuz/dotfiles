@@ -119,6 +119,20 @@ hook_add = '''
 repo = 'tpope/vim-surround'
 
 [[plugins]]
+repo = 'tpope/vim-projectionist'
+
+[[plugins]]
+repo = 'camthompson/vim-ember'
+depends = ['tpope/vim-projectionist']
+
+[[plugins]]
+repo = 'AndrewRadev/ember_tools.vim'
+depends = ['tpope/vim-projectionist']
+
+[[plugins]]
+repo = 'mustache/vim-mustache-handlebars'
+
+[[plugins]]
 repo = 'vim-scripts/gtk-vim-syntax'
 
 [[plugins]]
@@ -156,3 +170,19 @@ hook_add = '''
   set background=dark
   au VimEnter * nested colorscheme gruvbox
 '''
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'python-mode/python-mode'
+hook_add = '''
+  let g:pymode_python = 'python3'
+'''
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = ['python']
+
+[[plugins]]
+repo = 'zenbro/mirror.vim'
