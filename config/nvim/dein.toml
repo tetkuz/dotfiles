@@ -20,17 +20,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'Rip-Rip/clang_complete'
-hook_add = '''
-  let g:clang_complete_auto = 0
-  let g:clang_auto_select = 0
-  let g:clang_omnicppcomplete_compliance = 0
-  let g:clang_make_default_keymappings = 0
-  let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
-'''
-on_event = 'InsertEnter'
-
-[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
@@ -41,10 +30,6 @@ hook_add = '''
   smap <C-k> <Plug>(neosnippet_expand_or_jump)
   xmap <C-k> <Plug>(neosnippet_expand_target)
 '''
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-on_ft = 'toml'
 
 [[plugins]]
 repo = 'Shougo/neoinclude.vim'
@@ -62,42 +47,13 @@ repo = 'kana/vim-smartinput'
 on_event = 'InsertEnter'
 
 [[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = '''
-  nnoremap <silent> <leader>t :TagbarToggle<CR>
-'''
-
-[[plugins]]
-repo = 'mattn/emmet-vim'
-on_ft = 'html'
-
-[[plugins]]
-repo = 'mattn/gist-vim'
-lazy = 1
-
-[[plugins]]
 repo = 'mattn/webapi-vim'
-
-[[plugins]]
-repo = 'rhysd/vim-gfm-syntax'
-on_ft = 'markdown'
 
 [[plugins]]
 repo = 'rking/ag.vim'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
-
-[[plugins]]
-repo = 'scrooloose/syntastic'
-on_event = 'InsertEnter'
-
-[[plugins]]
-repo = 'thiblahute/vim-devhelp'
-hook_add = '''
-  let g:devhelpSearch=1
-'''
-on_ft = ['c', 'h', 'cpp']
+repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'tpope/vim-abolish'
@@ -108,6 +64,44 @@ repo = 'tpope/vim-endwise'
 on_event = 'InsertEnter'
 
 [[plugins]]
+repo = 'scrooloose/syntastic'
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+
+[[plugins]]
+repo = 'tpope/vim-projectionist'
+
+# UserInterface {{{
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = '''
+  nnoremap <silent> <leader>t :TagbarToggle<CR>
+'''
+
+[[plugins]]
+repo = 'bling/vim-airline'
+
+[[plugins]]
+repo = 'morhetz/gruvbox'
+hook_add = '''
+  set background=dark
+  au VimEnter * nested colorscheme gruvbox
+'''
+
+# }}}
+
+# Rails {{{
+
+[[plugins]]
 repo = 'tpope/vim-rails'
 depends = ['tpope/vim-surround']
 hook_add = '''
@@ -115,11 +109,12 @@ hook_add = '''
   let g:surround_{char2nr('=')} = "<%= \r %>"
 '''
 
-[[plugins]]
-repo = 'tpope/vim-surround'
+# }}}
+
+# Ember {{{
 
 [[plugins]]
-repo = 'tpope/vim-projectionist'
+repo = 'mustache/vim-mustache-handlebars'
 
 [[plugins]]
 repo = 'camthompson/vim-ember'
@@ -129,24 +124,29 @@ depends = ['tpope/vim-projectionist']
 repo = 'AndrewRadev/ember_tools.vim'
 depends = ['tpope/vim-projectionist']
 
-[[plugins]]
-repo = 'mustache/vim-mustache-handlebars'
+# }}}
+
+# Typescript {{{
 
 [[plugins]]
-repo = 'vim-scripts/gtk-vim-syntax'
+repo = 'leafgarland/typescript-vim'
 
 [[plugins]]
-repo = 'vimwiki/vimwiki'
+repo = 'mhartington/nvim-typescript'
 
 [[plugins]]
-repo = 'vivien/vim-linux-coding-style'
-hook_add = '''
-  let g:linuxsty_patterns = [ "/usr/src/", "/linux" ]
-'''
-on_path = [ "/usr/src/", "/linux" ]
+repo = 'Quramy/tsuquyomi'
+
+# }}}
+
+# HTML/CSS/JavaScript {{{
 
 [[plugins]]
 repo = 'othree/html5.vim'
+on_ft = 'html'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
 on_ft = 'html'
 
 [[plugins]]
@@ -161,28 +161,54 @@ on_ft = 'scss'
 repo = 'othree/javascript-libraries-syntax.vim'
 on_ft = 'javascript'
 
-[[plugins]]
-repo = 'bling/vim-airline'
+# }}}
+
+# C/C++ {{{
 
 [[plugins]]
-repo = 'morhetz/gruvbox'
+repo = 'Rip-Rip/clang_complete'
 hook_add = '''
-  set background=dark
-  au VimEnter * nested colorscheme gruvbox
+  let g:clang_complete_auto = 0
+  let g:clang_auto_select = 0
+  let g:clang_omnicppcomplete_compliance = 0
+  let g:clang_make_default_keymappings = 0
+  let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
 '''
-
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-
-[[plugins]]
-repo = 'python-mode/python-mode'
-hook_add = '''
-  let g:pymode_python = 'python3'
-'''
-
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-on_ft = ['python']
+on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'zenbro/mirror.vim'
+
+[[plugins]]
+repo = 'vim-scripts/gtk-vim-syntax'
+
+[[plugins]]
+repo = 'vivien/vim-linux-coding-style'
+hook_add = '''
+  let g:linuxsty_patterns = [ "/usr/src/", "/linux" ]
+'''
+on_path = [ "/usr/src/", "/linux" ]
+
+[[plugins]]
+repo = 'thiblahute/vim-devhelp'
+hook_add = '''
+  let g:devhelpSearch=1
+'''
+on_ft = ['c', 'h', 'cpp']
+
+# }}}
+
+# TOML {{{
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+# }}}
+
+[[plugins]]
+repo = 'rhysd/vim-gfm-syntax'
+on_ft = 'markdown'
+if = 0
+
+# vim:fdm=marker
