@@ -64,8 +64,16 @@ repo = 'tpope/vim-endwise'
 on_event = 'InsertEnter'
 
 [[plugins]]
-repo = 'scrooloose/syntastic'
-on_event = 'InsertEnter'
+repo = 'vim-syntastic/syntastic'
+hook_add = '''
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+
+  let g:syntastic_typescript_checkers = ['tslint']
+  let g:syntastic_typescript_tslint_args = "--config ~/src/dotfiles/tslint.json"
+'''
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -184,11 +192,7 @@ hook_post_update = '''
 '''
 
 [[plugins]]
-repo = 'HerringtonDarkholme/yats.vim'
-
-[[plugins]]
-repo = 'Quramy/tsuquyomi'
-if = 0
+repo = 'leafgarland/typescript-vim'
 
 # }}}
 
