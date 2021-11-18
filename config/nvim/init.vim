@@ -1,6 +1,5 @@
 " vim:foldmethod=marker
 " My sets {{{
-syntax on
 set relativenumber
 set ruler
 set cursorline
@@ -54,7 +53,6 @@ vnoremap <M-g> y:!chromium "http://www.google.com/search?q=<C-R>""\ &<CR>
 au BufWritePre * %s/\s\+$//e
 au FileType ruby,eruby,html,javascript set sw=2 sts=2 et
 " }}}
-let g:python3_host_prog = '/usr/bin/python3'
 
 if &compatible
   set nocompatible
@@ -72,13 +70,16 @@ let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
   call dein#load_toml(s:toml_file)
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
   call dein#end()
-  call dein#save_state()
 endif
 
 filetype plugin indent on
+syntax enable
 
 if dein#check_install()
   call dein#install()
 endif
-

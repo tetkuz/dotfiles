@@ -13,9 +13,6 @@ hook_add = '''
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-  let g:deoplete#sources#clang#libclang_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
-  let g:deoplete#sources#clang#clang_header='/usr/lib/llvm-3.8/lib/clang/3.8.1/include'
-  let g:deoplete#auto_complete_delay=100
   let g:deoplete#enable_at_startup=1
 '''
 
@@ -30,11 +27,6 @@ hook_add = '''
   smap <C-k> <Plug>(neosnippet_expand_or_jump)
   xmap <C-k> <Plug>(neosnippet_expand_target)
 '''
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-on_event = 'InsertEnter'
-lazy = 1
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
@@ -56,10 +48,6 @@ repo = 'rking/ag.vim'
 repo = 'tpope/vim-surround'
 
 [[plugins]]
-repo = 'tpope/vim-abolish'
-lazy = 1
-
-[[plugins]]
 repo = 'tpope/vim-endwise'
 on_event = 'InsertEnter'
 
@@ -76,26 +64,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-
-[[plugins]]
-repo = 'jsfaint/gen_tags.vim'
-
-[[plugins]]
-repo = 'tpope/vim-projectionist'
-
-[[plugins]]
-repo = 'glidenote/memolist.vim'
-hook_add = '''
-  let g:memolist_memo_suffix = "md"
-  let g:memolist_ex_cmd = 'NERDTree'
-  let g:memolist_denite = 1
-
-  nnoremap <leader>m :split ~/memo/tmp.md<CR> :resize 12<CR>
-  nnoremap <leader>ml :MemoList<CR>
-'''
-
-[[plugins]]
 repo = 'tpope/vim-fugitive'
 
 [[plugins]]
@@ -103,12 +71,6 @@ repo = 'kana/vim-tabpagecd'
 
 
 # UserInterface {{{
-
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-  nnoremap <silent> <leader>e :NERDTreeToggle<CR>
-'''
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
@@ -138,9 +100,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'bling/vim-airline'
-
-[[plugins]]
 repo = 'morhetz/gruvbox'
 hook_add = '''
   set background=dark
@@ -149,33 +108,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'luochen1990/rainbow'
-
-# }}}
-
-# Rails {{{
-
-[[plugins]]
-repo = 'tpope/vim-rails'
-depends = ['tpope/vim-surround']
-hook_add = '''
-  let g:surround_{char2nr('-')} = "<% \r %>"
-  let g:surround_{char2nr('=')} = "<%= \r %>"
-'''
-
-# }}}
-
-# Ember {{{
-
-[[plugins]]
-repo = 'mustache/vim-mustache-handlebars'
-
-[[plugins]]
-repo = 'camthompson/vim-ember'
-depends = ['tpope/vim-projectionist']
-
-[[plugins]]
-repo = 'AndrewRadev/ember_tools.vim'
-depends = ['tpope/vim-projectionist']
 
 # }}}
 
@@ -225,41 +157,6 @@ on_ft = 'css'
 [[plugins]]
 repo = 'cakebaker/scss-syntax.vim'
 on_ft = 'scss'
-
-# }}}
-
-# C/C++ {{{
-
-[[plugins]]
-repo = 'Rip-Rip/clang_complete'
-hook_add = '''
-  let g:clang_complete_auto = 0
-  let g:clang_auto_select = 0
-  let g:clang_omnicppcomplete_compliance = 0
-  let g:clang_make_default_keymappings = 0
-  let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
-'''
-on_event = 'InsertEnter'
-
-[[plugins]]
-repo = 'zenbro/mirror.vim'
-
-[[plugins]]
-repo = 'vim-scripts/gtk-vim-syntax'
-
-[[plugins]]
-repo = 'vivien/vim-linux-coding-style'
-hook_add = '''
-  let g:linuxsty_patterns = [ "/usr/src/", "/linux" ]
-'''
-on_path = [ "/usr/src/", "/linux" ]
-
-[[plugins]]
-repo = 'thiblahute/vim-devhelp'
-hook_add = '''
-  let g:devhelpSearch=1
-'''
-on_ft = ['c', 'h', 'cpp']
 
 # }}}
 
