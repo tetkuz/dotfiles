@@ -4,32 +4,53 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 hook_add = '''
-  nnoremap <silent> ,r :Denite file_mru<CR>
-  nnoremap <silent> ,f :Denite file_rec<CR>
   call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
   call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
 '''
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
+repo = 'Shougo/ddc.vim'
 hook_add = '''
-  let g:deoplete#enable_at_startup=1
+inoremap <silent><expr> <TAB>
+\ pumvisible() ? '<C-n>' :
+\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+\ '<TAB>' : ddc#map#manual_complete()
+
+" <S-TAB>: completion back.
+inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
+call ddc#custom#patch_global('sourceOptions', {
+  \   '_': {
+  \     'matchers': ['matcher_fuzzy'],
+  \     'sorters': ['sorter_fuzzy'],
+  \     'converters': ['converter_fuzzy']
+  \   }
+  \ })
+
+call ddc#enable()
 '''
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-depends = ['Shougo/neosnippet-snippets']
+repo = 'Shougo/pum.vim'
 hook_add = '''
-  imap <C-k> <Plug>(neosnippet_expand_or_jump)
-  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k> <Plug>(neosnippet_expand_target)
+inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 '''
 
 [[plugins]]
-repo = 'Shougo/neomru.vim'
+repo = 'tani/ddc-fuzzy'
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+hook_add = '''
+call ddc#custom#patch_global('sources', ['around'])
+'''
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
@@ -50,18 +71,6 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'tpope/vim-endwise'
 on_event = 'InsertEnter'
-
-[[plugins]]
-repo = 'vim-syntastic/syntastic'
-hook_add = '''
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
-
-  let g:syntastic_typescript_checkers = ['tslint']
-  let g:syntastic_typescript_tslint_args = "--config ~/src/dotfiles/tslint.json"
-'''
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -114,29 +123,7 @@ repo = 'luochen1990/rainbow'
 # Typescript {{{
 
 [[plugins]]
-repo = 'mhartington/nvim-typescript'
-hook_add = '''
-  let g:nvim_typescript#default_mappings = 1
-  let g:nvim_typescript#javascript_support = 1
-'''
-hook_post_update = '''
-  let g:dein#plugin.build = './install.sh'
-'''
-
-[[plugins]]
 repo = 'leafgarland/typescript-vim'
-
-# }}}
-
-# JavaScript {{{
-
-[[plugins]]
-repo = 'ternjs/tern_for_vim'
-on_ft = 'javascript'
-
-[[plugins]]
-repo = 'othree/javascript-libraries-syntax.vim'
-on_ft = 'javascript'
 
 # }}}
 

@@ -52,6 +52,9 @@ vnoremap <M-g> y:!chromium "http://www.google.com/search?q=<C-R>""\ &<CR>
 " My autocommads {{{
 au BufWritePre * %s/\s\+$//e
 au FileType ruby,eruby,html,javascript set sw=2 sts=2 et
+
+autocmd InsertLeave * :call system('/mnt/c/Users/tamur/OneDrive/bin/zenhan/bin64/zenhan.exe 0')
+autocmd CmdlineLeave * :call system('/mnt/c/Users/tamur/OneDrive/bin/zenhan/bin64/zenhan.exe 0')
 " }}}
 
 if &compatible
@@ -70,10 +73,6 @@ let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
   call dein#load_toml(s:toml_file)
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
   call dein#end()
 endif
 
