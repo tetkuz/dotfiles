@@ -53,8 +53,10 @@ vnoremap <M-g> y:!chromium "http://www.google.com/search?q=<C-R>""\ &<CR>
 au BufWritePre * %s/\s\+$//e
 au FileType ruby,eruby,html,javascript set sw=2 sts=2 et
 
-autocmd InsertLeave * :call system('/mnt/c/Users/tamur/OneDrive/bin/zenhan/bin64/zenhan.exe 0')
-autocmd CmdlineLeave * :call system('/mnt/c/Users/tamur/OneDrive/bin/zenhan/bin64/zenhan.exe 0')
+autocmd InsertLeave * :call system('/opt/zenhan/zenhan.exe 0')
+autocmd CmdlineLeave * :call system('/opt/zenhan/zenhan.exe 0')
+
+autocmd BufNewFile,BufRead *.mdc setfiletype markdown
 " }}}
 
 if &compatible
@@ -82,3 +84,16 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
+
+let g:clipboard = {
+      \ 'name': 'WslClipboard',
+      \ 'copy': {
+      \   '+': 'xsel -bi',
+      \   '*': 'xsel -bi',
+      \ },
+      \ 'paste': {
+      \   '+': 'xsel -bo',
+      \   '*': {-> systemlist('xsel -bo | tr -d "\r"')},
+      \ },
+      \ 'cache_enabled': 1,
+      \ }

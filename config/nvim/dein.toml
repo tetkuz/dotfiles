@@ -9,29 +9,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'Shougo/ddc.vim'
-hook_add = '''
-inoremap <silent><expr> <TAB>
-\ pumvisible() ? '<C-n>' :
-\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-\ '<TAB>' : ddc#map#manual_complete()
-
-" <S-TAB>: completion back.
-inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
-
-call ddc#custom#patch_global('completionMenu', 'pum.vim')
-call ddc#custom#patch_global('sourceOptions', {
-  \   '_': {
-  \     'matchers': ['matcher_fuzzy'],
-  \     'sorters': ['sorter_fuzzy'],
-  \     'converters': ['converter_fuzzy']
-  \   }
-  \ })
-
-call ddc#enable()
-'''
-
-[[plugins]]
 repo = 'Shougo/pum.vim'
 hook_add = '''
 inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
@@ -42,12 +19,6 @@ inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
-
-[[plugins]]
-repo = 'Shougo/ddc-around'
-hook_add = '''
-call ddc#custom#patch_global('sources', ['around'])
-'''
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
@@ -78,6 +49,29 @@ repo = 'tpope/vim-fugitive'
 [[plugins]]
 repo = 'kana/vim-tabpagecd'
 
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+build = 'cd app && yarn install'
+
+[[plugins]]
+repo = 'kevinhwang91/promise-async'
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+
+[[plugins]]
+repo = 'kevinhwang91/nvim-ufo'
+depends = ['nvim-treesitter/nvim-treesitter']
+hook_add = '''
+lua << EOF
+require('ufo').setup({
+  provider_selector = function() return {'treesitter','indent'} end,
+})
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+EOF
+'''
 
 # UserInterface {{{
 
@@ -112,7 +106,7 @@ hook_add = '''
 repo = 'morhetz/gruvbox'
 hook_add = '''
   set background=dark
-  au VimEnter * nested colorscheme gruvbox
+  au VimEnter * nested colorscheme gruvbox | highlight Normal guibg=NONE
 '''
 
 [[plugins]]
@@ -124,6 +118,39 @@ repo = 'luochen1990/rainbow'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+depends = ['mason-lspconfig.nvim']
+hook_add = '''
+lua << EOF
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "ts_ls" },
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local opts = { buffer = args.buf, silent = true }
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "K",  vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+  end,
+})
+
+vim.lsp.config("ts_ls", {
+})
+vim.lsp.enable("ts_ls")
+EOF
+'''
+
+[[plugins]]
+repo = 'mason-org/mason.nvim'
+
+[[plugins]]
+repo = 'mason-org/mason-lspconfig.nvim'
+depends = ['mason.nvim']
 
 # }}}
 
