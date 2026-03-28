@@ -6,7 +6,7 @@ set cursorline
 set cursorcolumn
 set laststatus=2
 set showmatch
-set ambiwidth=double
+set ambiwidth=single
 set hlsearch
 set display=lastline
 set fillchars=
@@ -36,6 +36,7 @@ set listchars=tab:»\ ,nbsp:%
 " My maps {{{
 nnoremap <M-t> :split term://zsh<CR>i
 nnoremap <M-T> :tabnew term://zsh<CR>i
+nnoremap <leader>tt :tabnew term://tmux new-session -A -s neovim<CR>i
 nnoremap x "_x
 nmap Y y$
 nnoremap tw "adiwP

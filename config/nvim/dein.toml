@@ -112,6 +112,51 @@ hook_add = '''
 [[plugins]]
 repo = 'luochen1990/rainbow'
 
+[[plugins]]
+repo = 'nvim-neo-tree/neo-tree.nvim'
+rev = 'v3.x'
+depends = ['plenary.nvim', 'nui.nvim', 'nvim-web-devicons']
+lazy = 0
+hook_add = '''
+lua << EOF
+local git_hash = require("neo_tree_git_hash")
+git_hash.setup()
+require("neo-tree").setup({
+  filesystem = {
+    components = {
+      git_hash = git_hash.component,
+    },
+  },
+  renderers = {
+    file = {
+      { "indent" },
+      { "icon" },
+      {
+        "container",
+        content = {
+          { "name", zindex = 10 },
+          { "symlink_target", zindex = 10 },
+          { "clipboard", zindex = 10 },
+          { "modified", zindex = 20, align = "right" },
+          { "diagnostics", zindex = 20, align = "right" },
+          { "git_status", zindex = 10, align = "right" },
+          { "git_hash", zindex = 10, align = "right" },
+        },
+      },
+    },
+  },
+})
+EOF
+'''
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
+
+[[plugins]]
+repo = 'nvim-tree/nvim-web-devicons'
 # }}}
 
 # Typescript {{{
