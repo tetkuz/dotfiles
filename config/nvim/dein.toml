@@ -65,7 +65,10 @@ depends = ['nvim-treesitter/nvim-treesitter']
 hook_add = '''
 lua << EOF
 require('ufo').setup({
-  provider_selector = function() return {'treesitter','indent'} end,
+  provider_selector = function(_, filetype)
+    if filetype == 'markdown' then return '' end
+    return {'treesitter','indent'}
+  end,
 })
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
@@ -157,6 +160,13 @@ repo = 'MunifTanjim/nui.nvim'
 
 [[plugins]]
 repo = 'nvim-tree/nvim-web-devicons'
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+hook_add = '''
+nnoremap <leader>ff :Telescope find_files<CR>
+'''
+
 # }}}
 
 # Typescript {{{
