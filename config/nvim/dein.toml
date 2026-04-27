@@ -58,10 +58,20 @@ repo = 'kevinhwang91/promise-async'
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
+rev = 'master'
+hook_post_update = 'TSUpdate'
+hook_post_source = '''
+lua << EOF
+require('nvim-treesitter.configs').setup({
+  ensure_installed = { 'json', 'jsonc', 'yaml', 'toml', 'lua', 'vim', 'vimdoc', 'typescript', 'tsx', 'javascript', 'bash', 'markdown', 'markdown_inline' },
+  highlight = { enable = true },
+})
+EOF
+'''
 
 [[plugins]]
 repo = 'kevinhwang91/nvim-ufo'
-depends = ['nvim-treesitter/nvim-treesitter']
+depends = ['nvim-treesitter']
 hook_add = '''
 lua << EOF
 require('ufo').setup({
@@ -236,5 +246,4 @@ repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
 # }}}
-
 # vim:fdm=marker

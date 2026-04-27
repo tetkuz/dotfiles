@@ -1,4 +1,8 @@
 " vim:foldmethod=marker
+" OS detection {{{
+let s:is_wsl = has('wsl')
+let s:is_win = has('win32') || has('win64')
+" }}}
 " My sets {{{
 set relativenumber
 set ruler
@@ -34,9 +38,15 @@ set list
 set listchars=tab:»\ ,nbsp:%
 " }}}
 " My maps {{{
-nnoremap <M-t> :split term://zsh<CR>i
-nnoremap <M-T> :tabnew term://zsh<CR>i
-nnoremap <leader>tt :tabnew term://tmux new-session -A -s neovim<CR>i
+if s:is_win
+  nnoremap <M-t> :split term://pwsh<CR>i
+  nnoremap <M-T> :tabnew term://pwsh<CR>i
+  nnoremap <leader>tt :tabnew term://pwsh<CR>i
+else
+  nnoremap <M-t> :split term://zsh<CR>i
+  nnoremap <M-T> :tabnew term://zsh<CR>i
+  nnoremap <leader>tt :tabnew term://tmux new-session -A -s neovim<CR>i
+endif
 nnoremap x "_x
 nmap Y y$
 nnoremap tw "adiwP
@@ -48,14 +58,25 @@ nnoremap gcd :cd %:h<CR>
 nnoremap / :set hlsearch<CR>/
 nnoremap gr gT
 nnoremap T :tabnew<CR>
-vnoremap <M-g> y:!chromium "http://www.google.com/search?q=<C-R>""\ &<CR>
+if s:is_win
+  vnoremap <M-g> y:!start "" "https://www.google.com/search?q=<C-R>""<CR>
+else
+  vnoremap <M-g> y:!chromium "http://www.google.com/search?q=<C-R>""\ &<CR>
+endif
 " }}}
 " My autocommads {{{
 au BufWritePre * %s/\s\+$//e
 au FileType ruby,eruby,html,javascript set sw=2 sts=2 et
 
-autocmd InsertLeave * :call system('/opt/zenhan/zenhan.exe 0')
-autocmd CmdlineLeave * :call system('/opt/zenhan/zenhan.exe 0')
+if s:is_wsl
+  let s:zenhan_cmd = '/opt/zenhan/zenhan.exe 0'
+elseif s:is_win
+  let s:zenhan_cmd = 'zenhan.exe 0'
+endif
+if exists('s:zenhan_cmd')
+  execute 'autocmd InsertLeave * :call system("' . s:zenhan_cmd . '")'
+  execute 'autocmd CmdlineLeave * :call system("' . s:zenhan_cmd . '")'
+endif
 
 autocmd BufNewFile,BufRead *.mdc setfiletype markdown
 " }}}
@@ -86,15 +107,17 @@ if dein#check_install()
   call dein#install()
 endif
 
-let g:clipboard = {
-      \ 'name': 'WslClipboard',
-      \ 'copy': {
-      \   '+': 'xsel -bi',
-      \   '*': 'xsel -bi',
-      \ },
-      \ 'paste': {
-      \   '+': 'xsel -bo',
-      \   '*': {-> systemlist('xsel -bo | tr -d "\r"')},
-      \ },
-      \ 'cache_enabled': 1,
-      \ }
+if s:is_wsl
+  let g:clipboard = {
+        \ 'name': 'WslClipboard',
+        \ 'copy': {
+        \   '+': 'xsel -bi',
+        \   '*': 'xsel -bi',
+        \ },
+        \ 'paste': {
+        \   '+': 'xsel -bo',
+        \   '*': {-> systemlist('xsel -bo | tr -d "\r"')},
+        \ },
+        \ 'cache_enabled': 1,
+        \ }
+endif
